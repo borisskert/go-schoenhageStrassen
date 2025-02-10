@@ -3,8 +3,9 @@ package main
 // Schönhage–Strassen Multiplication
 func schoenhageStrassenMultiply(a, b []int64, mod int64) []int64 {
 	n := len(a)
-	//g := findPrimitiveRoot(mod)
-	omega := modExp(3, (mod-1)/int64(n), mod) // Primitive root
+	g := findPrimitiveRoot(mod)
+	omega := modExp(g, (mod-1)/int64(n), mod) // Primitive root
+	//omega := int64(3383)
 
 	// Step 1: Forward NTT
 	A := NTT(a, omega, mod)

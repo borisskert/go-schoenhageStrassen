@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	multiplyExample()
+	findPrimitiveRootExample()
 }
 
 func multiplyExample() {
@@ -14,8 +14,9 @@ func multiplyExample() {
 	b := []int64{2, 3, 4, 5} // Represents 2 + 3x + 4x^2 + 5x^3
 
 	//// Choose modulus M = 2^m + 1 (for m = 32, M = 4294967297)
+	//mod := int64(7681)
+	//mod := int64(11)
 	mod := int64(4294967297)
-	//mod := int64(4294967311)
 
 	// Multiply using Schönhage–Strassen
 	result := schoenhageStrassenMultiply(a, b, mod)
