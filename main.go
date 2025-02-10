@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	findPrimitiveRootExample()
+	findOmegaInvExample()
 }
 
 func multiplyExample() {

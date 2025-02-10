@@ -1,22 +1,22 @@
 package main
 
 // Modular exponentiation: (base^exp) % mod
-func modExp(base, exp, mod int64) int64 {
-	result := uint64(1)
-
-	m := uint64(mod)
-	base64 := uint64(base)
-
-	for exp > 0 {
-		if exp%2 == 1 {
-			result = (result * base64) % m
-		}
-		base64 = (base64 * base64) % m
-		exp /= 2
-	}
-
-	return int64(result)
-}
+//func modExp(base, exp, mod int64) int64 {
+//	result := uint64(1)
+//
+//	m := uint64(mod)
+//	base64 := uint64(base)
+//
+//	for exp > 0 {
+//		if exp%2 == 1 {
+//			result = (result * base64) % m
+//		}
+//		base64 = (base64 * base64) % m
+//		exp /= 2
+//	}
+//
+//	return int64(result)
+//}
 
 // Number-Theoretic Transform (NTT) over Z/(2^m + 1)
 func NTT(a []int64, omega, mod int64) []int64 {
