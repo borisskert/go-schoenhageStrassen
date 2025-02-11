@@ -22,8 +22,8 @@ func isPrime(n int64) bool {
 	return true
 }
 
-func findLargePrime() int64 {
-	for n := int64(4294967297); ; n++ {
+func findLargePrime(M int64) int64 {
+	for n := M + 1; ; n++ {
 		if isPrime(n) {
 			return n
 		}
@@ -36,6 +36,6 @@ func checkPrimeExample() {
 }
 
 func findLargePrimeExample() {
-	n := findLargePrime()
+	n := findLargePrime(4294967297)
 	fmt.Println("Largest Prime:", n)
 }

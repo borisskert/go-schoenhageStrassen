@@ -19,22 +19,22 @@ import (
 //	return result
 //}
 
-// Factorize n into its prime factors
-func factorize(n int64) []int64 {
-	factors := []int64{}
-	for i := int64(2); i*i <= n; i++ {
-		if n%i == 0 {
-			factors = append(factors, i)
-			for n%i == 0 {
-				n /= i
-			}
-		}
-	}
-	if n > 1 {
-		factors = append(factors, n)
-	}
-	return factors
-}
+//// Factorize n into its prime factors
+//func factorize(n int64) []int64 {
+//	factors := []int64{}
+//	for i := int64(2); i*i <= n; i++ {
+//		if n%i == 0 {
+//			factors = append(factors, i)
+//			for n%i == 0 {
+//				n /= i
+//			}
+//		}
+//	}
+//	if n > 1 {
+//		factors = append(factors, n)
+//	}
+//	return factors
+//}
 
 // Check if g is a primitive root modulo M
 func isPrimitiveRoot(g, mod int64) bool {
