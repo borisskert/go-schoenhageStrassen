@@ -5,25 +5,31 @@ import (
 )
 
 func checkNttInttExample() {
-	A := []int64{1, 2, 3} // Input array
+	A := []int64{1, 2, 3, 4, 5, 6, 7, 9, 10} // Input array
 	n := int64(len(A))
-	mod := int64(4294967297)      // Example modulus
-	m := log2(mod)                // Length of A
-	omega, _ := findOmega(m, mod) // Example modulus
-	fmt.Println("Omega:", omega, " is valid: ", isValidOmega(omega, m, mod))
+	n = NextPowerOf2(n) // Ensure n is a power of 2
+
+	A = append(A, make([]int64, n-int64(len(A)))...) // Pad with zeros
 
 	fmt.Println("Original A:", A)
 
+	mod, _, omega, err := findModulus(A)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
 	// Compute NTT
-	A_ntt := NTT(padToPowerOfTwo(A), omega, mod)
+	A_ntt := NTT(A, n, int64(omega), int64(mod))
 	fmt.Println("After NTT :", A_ntt)
 
-	omegaInv := modInverse(omega, mod)
-	fmt.Println("omega:", omega, "omegaInv:", omegaInv)
-	fmt.Println("omega ^ n =", modExp(omega, n, mod)) // should be 1 if ω is correct
+	omegaInv := modInverse(int64(omega), int64(mod))
+	fmt.Println("ω:", omega, "ω(Inv):", omegaInv)
+	fmt.Println("ω ^ n =", modExp(int64(omega), n, int64(mod)))           // should be 1 if ω is correct
+	fmt.Println("ω * ω(Inv) mod M =", (int64(omega)*omegaInv)%int64(mod)) // should be 1
 
 	// Compute INTT
-	A_recovered := INTT(A_ntt, omegaInv, mod)
+	A_recovered := INTT(A_ntt, n, omegaInv, int64(mod))
 
 	// Verify recovery
 	fmt.Println("After INTT:", A_recovered) // Should match original A

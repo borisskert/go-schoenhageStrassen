@@ -1,31 +1,22 @@
 package main
 
-import "fmt"
+func NTT(a []int64, n int64, omega int64, M int64) []int64 {
+	a = BitReverseCopy(a) // Ensure bit-reversed order
+	result := make([]int64, len(a))
+	copy(result, a)
 
-func NTT(a []int64, omega int64, mod int64) []int64 {
-	n := len(a)
-	res := make([]int64, n)
-	copy(res, a) // Work on a copy
-
-	fmt.Println("NTT Input:", res)
-
-	step := 1
-	for lenBlock := n / 2; lenBlock > 0; lenBlock /= 2 {
-		w := int64(1)
-		for j := 0; j < n; j += 2 * lenBlock {
-			for k := 0; k < lenBlock; k++ {
-				u := res[j+k]
-				v := (w * res[j+k+lenBlock]) % mod
-
-				res[j+k] = (u + v) % mod
-				res[j+k+lenBlock] = (u - v + mod) % mod
+	for length := int64(2); length <= n; length *= 2 {
+		wLen := modExp(omega, n/length, M)
+		for i := int64(0); i < n; i += length {
+			w := int64(1)
+			for j := int64(0); j < length/2; j++ {
+				u := result[i+j]
+				v := (result[i+j+length/2] * w) % M
+				result[i+j] = (u + v) % M
+				result[i+j+length/2] = (u - v + M) % M
+				w = (w * wLen) % M
 			}
-			w = (w * omega) % mod
 		}
-		fmt.Println("Step", step, ":", res)
-		step++
 	}
-
-	fmt.Println("Final NTT:", res)
-	return res
+	return result
 }
