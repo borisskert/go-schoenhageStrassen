@@ -4,46 +4,39 @@ import "math/bits"
 
 // Modular exponentiation: (base^exp) % mod
 func modExp(base, exp, mod int64) int64 {
-	if exp == 0 {
-		return 1
+	if mod == 1 {
+		return 0 // Special case: Any number mod 1 is always 0
 	}
 
-	if base == 0 {
-		return 0
-	}
-
-	if base == 1 {
-		return 1
-	}
-
+	result := int64(1)
+	b := uint64(base % mod) // Ensure base is within [0, mod)
 	m := uint64(mod)
-	result := uint64(1)
-	b := uint64(base % mod)
 
 	for exp > 0 {
-		if exp%2 == 1 {
-			result = (result * b) % m
+		if exp&1 == 1 { // If exp is odd, multiply result
+			result = int64(safeModMul(result, b, m))
 		}
-
-		hi, lo := bits.Mul64(b, b)
-		_, _, b = divmod64(hi, lo, m)
-
-		exp /= 2
+		b = safeModMul(int64(b), b, m) // Square the base safely
+		exp >>= 1
 	}
 
-	return int64(result)
+	return normalizeMod(result, mod) // Ensure result is non-negative
 }
 
-func divmod64(aHi, aLo uint64, b uint64) (uint64, uint64, uint64) {
-	if uint64(b) == 0 {
-		panic("division by zero")
+// Safe modular multiplication using 128-bit arithmetic
+func safeModMul(a int64, b uint64, mod uint64) uint64 {
+	hi, lo := bits.Mul64(uint64(a), b) // Perform 128-bit multiplication
+	_, _, r := divmod64(hi, lo, mod)
+	return uint64(normalizeMod(int64(r), int64(mod)))
+}
+
+// Ensure non-negative modulo result
+func normalizeMod(x, mod int64) int64 {
+	x %= mod
+
+	for x < 0 {
+		x += mod // If negative, shift into positive range
 	}
 
-	// Step 1: Divide the high 64-bit part
-	qHi, r := bits.Div64(0, aHi, b)
-
-	// Step 2: Divide the lower 64-bit part using the remainder from step 1
-	qLo, r := bits.Div64(r, aLo, b)
-
-	return qHi, qLo, r
+	return x
 }

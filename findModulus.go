@@ -65,14 +65,15 @@ func findModulusMN(m int64, n int64) (Modulus, Generator, Omega, OmegaInverse, e
 
 	fmt.Println("generator:", g)
 	fmt.Println("ω:", omega, "ω(Inv):", omegaInv)
-	fmt.Println("ω ^ n =", modExp(omega, n, N))           // should be 1 if ω is correct
-	fmt.Println("ω * ω(Inv) mod M =", (omega*omegaInv)%N) // should be 1
+	fmt.Println("ω ^ n =", modExp(omega, n, N)) // should be 1 if ω is correct
+
+	fmt.Println("ω * ω(Inv) mod M =", modMul(omega, omegaInv, N)) // should be 1 // TODO need a modMult function
 
 	return Modulus(N), Generator(g), Omega(omega), OmegaInverse(omegaInv), nil
 }
 
 func findWorkingModulus(m int64, n int64) (int64, int64) {
-	M := m*m*n + 1
+	M := min(m*m*n+1, 1<<32+1)
 	fmt.Println("Minimum working modulus M:", M)
 
 	// 2. Find the smallest prime `N` such that N = kn + 1

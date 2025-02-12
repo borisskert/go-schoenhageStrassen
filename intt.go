@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func INTT(a []int64, omegaInv int64, M int64) []int32 {
+func INTT(a []int64, omegaInv int64, M int64) []int64 {
 	n := int64(len(a))
 
 	a = BitReverseCopy(a) // Ensure bit-reversed order
@@ -15,43 +15,40 @@ func INTT(a []int64, omegaInv int64, M int64) []int32 {
 			w := int64(1)
 			for j := int64(0); j < length/2; j++ {
 				u := result[i+j]
-				v := (result[i+j+length/2] * w) % M
-				result[i+j] = (u + v) % M
-				result[i+j+length/2] = (u - v + M) % M
-				w = (w * wLen) % M
+				v := modMul(result[i+j+length/2], w, M)
+				result[i+j] = modAdd(u, v, M)
+				result[i+j+length/2] = modSub(u, v, M) // ✅ FIXED
+				w = modMul(w, wLen, M)
 			}
 		}
 	}
 
-	//nInv := modExp(n, M-2, M) // Modular Inverse of n
-	nInv := modInverse(n, M) // Compute modular inverse of n
+	nInv := modInverseFermat(n, M) // Ensure M is prime
 
 	fmt.Println("nInv:", nInv, " for n:", n)
 
-	if n*nInv%M != 1 {
-		fmt.Println("n * nInv % M != 1")
+	if modMul(n, nInv, M) != 1 {
+		fmt.Println("ERROR: n * nInv % M != 1")
+		return nil
+	}
+
+	fmt.Println("n * nInv % M:", modMul(n, nInv, M))
+
+	if modMul(n, nInv, M) != 1 {
+		fmt.Println("ERROR: n * nInv % M != 1")
 		return nil
 	}
 
 	for i := 0; i < len(result); i++ {
-		result[i] = (result[i] * nInv) % M
-	}
-
-	result32 := make([]int32, len(result))
-	size := len(result)
-	shrinking := true
-	for i := size - 1; i >= 0; i-- {
-		result32[i] = int32(result[i])
-		if shrinking && result32[i] == 0 {
-			size--
-		} else {
-			shrinking = false
+		result[i] = modMul(result[i], nInv, M)
+		if result[i] < 0 {
+			result[i] += M // ✅ Fix negative values
 		}
 	}
 
-	fmt.Println("INTT result32:", result32[:size])
+	fmt.Println("INTT Result:", result)
 
-	return result32[:size]
+	return result
 }
 
 func intt(a []int64, omegaInv int64, M int64) []int64 {
@@ -67,10 +64,10 @@ func intt(a []int64, omegaInv int64, M int64) []int64 {
 			w := int64(1)
 			for j := int64(0); j < length/2; j++ {
 				u := result[i+j]
-				v := (result[i+j+length/2] * w) % M
-				result[i+j] = (u + v) % M
-				result[i+j+length/2] = (u - v + M) % M
-				w = (w * wLen) % M
+				v := modMul(result[i+j+length/2], w, M)
+				result[i+j] = modAdd(u, v, M)
+				result[i+j+length/2] = modAdd(modSub(u, v, M), M, M)
+				w = modMul(w, wLen, M)
 			}
 		}
 	}

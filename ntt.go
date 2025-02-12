@@ -23,6 +23,16 @@ func NTT(A []int32, omega int64, M int64) []int64 {
 		}
 	}
 
+	for i := int64(0); i < n; i++ {
+		result[i] = result[i] % M
+
+		if result[i] < 0 {
+			result[i] += M
+		}
+	}
+
+	fmt.Println("NTT Result:", result)
+
 	return result
 }
 
