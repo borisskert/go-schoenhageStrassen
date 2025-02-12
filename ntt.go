@@ -1,6 +1,11 @@
 package main
 
-func NTT(a []int64, n int64, omega int64, M int64) []int64 {
+func NTT(a []int64, omega int64, M int64) []int64 {
+	n := int64(len(a))
+	n = NextPowerOf2(n) // Ensure n is a power of 2
+
+	a = append(a, make([]int64, n-int64(len(a)))...) // Pad with zeros
+
 	a = BitReverseCopy(a) // Ensure bit-reversed order
 	result := make([]int64, len(a))
 	copy(result, a)

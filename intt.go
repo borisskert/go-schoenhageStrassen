@@ -1,6 +1,8 @@
 package main
 
-func INTT(a []int64, n int64, omegaInv int64, M int64) []int64 {
+func INTT(a []int64, omegaInv int64, M int64) []int64 {
+	n := int64(len(a))
+
 	a = BitReverseCopy(a) // Ensure bit-reversed order
 	result := make([]int64, len(a))
 	copy(result, a)
@@ -23,5 +25,14 @@ func INTT(a []int64, n int64, omegaInv int64, M int64) []int64 {
 	for i := range result {
 		result[i] = (result[i] * nInv) % M
 	}
+
+	for i := len(result) - 1; i >= 1; i-- {
+		if result[i] == 0 {
+			result = result[:i]
+		} else {
+			break
+		}
+	}
+
 	return result
 }

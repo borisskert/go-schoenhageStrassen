@@ -20,11 +20,11 @@ func checkNttInttExample() {
 	}
 
 	// Compute NTT
-	A_ntt := NTT(A, n, int64(omega), int64(mod))
+	A_ntt := NTT(A, int64(omega), int64(mod))
 	fmt.Println("After NTT :", A_ntt)
 
 	// Compute INTT
-	A_recovered := INTT(A_ntt, n, int64(omegaInv), int64(mod))
+	A_recovered := INTT(A_ntt, int64(omegaInv), int64(mod))
 
 	// Verify recovery
 	fmt.Println("After INTT:", A_recovered) // Should match original A
