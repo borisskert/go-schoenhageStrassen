@@ -7,7 +7,9 @@ func NTT(A []int32, omega int64, M int64) []int64 {
 
 	n := NextPowerOf2(int64(len(A)))
 
+	fmt.Println("Before BitReverseCopy (NTT):", A)
 	result := BitReverseCopyN(A, n) // Ensure bit-reversed order
+	fmt.Println("After BitReverseCopy (NTT):", result)
 
 	for length := int64(2); length <= n; length *= 2 {
 		wLen := modExp(omega, n/length, M)
@@ -15,10 +17,10 @@ func NTT(A []int32, omega int64, M int64) []int64 {
 			w := int64(1)
 			for j := int64(0); j < length/2; j++ {
 				u := result[i+j]
-				v := (result[i+j+length/2] * w) % M
-				result[i+j] = (u + v) % M
-				result[i+j+length/2] = (u - v + M) % M
-				w = (w * wLen) % M
+				v := modMul(result[i+j+length/2], w, M)
+				result[i+j] = modAdd(u, v, M)
+				result[i+j+length/2] = modSub(u, v, M)
+				w = modMul(w, wLen, M)
 			}
 		}
 	}
