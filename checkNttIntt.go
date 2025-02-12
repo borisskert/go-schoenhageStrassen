@@ -13,7 +13,7 @@ func checkNttInttExample() {
 
 	fmt.Println("Original A:", A)
 
-	mod, _, omega, err := findModulus(A)
+	mod, _, omega, omegaInv, err := findModulus(A)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
@@ -23,13 +23,8 @@ func checkNttInttExample() {
 	A_ntt := NTT(A, n, int64(omega), int64(mod))
 	fmt.Println("After NTT :", A_ntt)
 
-	omegaInv := modInverse(int64(omega), int64(mod))
-	fmt.Println("ω:", omega, "ω(Inv):", omegaInv)
-	fmt.Println("ω ^ n =", modExp(int64(omega), n, int64(mod)))           // should be 1 if ω is correct
-	fmt.Println("ω * ω(Inv) mod M =", (int64(omega)*omegaInv)%int64(mod)) // should be 1
-
 	// Compute INTT
-	A_recovered := INTT(A_ntt, n, omegaInv, int64(mod))
+	A_recovered := INTT(A_ntt, n, int64(omegaInv), int64(mod))
 
 	// Verify recovery
 	fmt.Println("After INTT:", A_recovered) // Should match original A
