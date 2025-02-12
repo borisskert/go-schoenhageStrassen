@@ -33,7 +33,8 @@ func findModulus(A []int64) (Modulus, Generator, Omega, OmegaInverse, error) {
 }
 
 func findModulusMN(m int64, n int64) (Modulus, Generator, Omega, OmegaInverse, error) {
-	fmt.Println("n:", n)
+	fmt.Println("(largest value in array) m:", m)
+	fmt.Println("(array length) n:", n)
 
 	// 1. Compute minimum modulus M to prevent overflow
 	N, k := findWorkingModulus(m, n)
@@ -46,9 +47,16 @@ func findModulusMN(m int64, n int64) (Modulus, Generator, Omega, OmegaInverse, e
 
 	// 4. Compute `ω = g^k mod N`
 	omega := modExp(g, k, N)
+	fmt.Println("computed (g ^ k mod N) ω:", omega)
 
 	// 5. Validate `ω` is a primitive nth root of unity
+	if omega == 0 || omega == 1 {
+		fmt.Println("ω is invalid, ω should not be 0 or 1")
+		return -1, -1, -1, -1, fmt.Errorf("invalid ω")
+	}
+
 	if modExp(omega, n, N) != 1 {
+		fmt.Println("ω is invalid, ω ^ n mod N should be 1")
 		return -1, -1, -1, -1, fmt.Errorf("invalid ω")
 	}
 
