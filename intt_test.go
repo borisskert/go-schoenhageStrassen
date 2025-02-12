@@ -7,9 +7,9 @@ import (
 
 var _ = Describe("INTT", func() {
 	It("INTT(NTT([1, 2, 3, 4]))", func() {
-		A := []int64{1, 2, 3, 4}
+		A := []int32{1, 2, 3, 4}
 
-		mod, _, omega, omegaInv, err := findModulus(A)
+		mod, _, omega, omegaInv, err := findModulus32(A)
 
 		Expect(err).NotTo(HaveOccurred())
 
@@ -21,9 +21,9 @@ var _ = Describe("INTT", func() {
 	})
 
 	It("INTT(NTT([1, 7, 3, 5]))", func() {
-		A := []int64{1, 7, 3, 5}
+		A := []int32{1, 7, 3, 5}
 
-		mod, _, omega, omegaInv, err := findModulus(A)
+		mod, _, omega, omegaInv, err := findModulus32(A)
 
 		Expect(err).NotTo(HaveOccurred())
 
@@ -35,9 +35,9 @@ var _ = Describe("INTT", func() {
 	})
 
 	It("INTT(NTT([3, 2, 1]))", func() {
-		A := []int64{3, 2, 1}
+		A := []int32{3, 2, 1}
 
-		mod, _, omega, omegaInv, err := findModulus(A)
+		mod, _, omega, omegaInv, err := findModulus32(A)
 
 		Expect(err).NotTo(HaveOccurred())
 
@@ -49,9 +49,9 @@ var _ = Describe("INTT", func() {
 	})
 
 	It("INTT(NTT([1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000]))", func() {
-		A := []int64{1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000}
+		A := []int32{1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000}
 
-		mod, _, omega, omegaInv, err := findModulus(A)
+		mod, _, omega, omegaInv, err := findModulus32(A)
 
 		Expect(err).NotTo(HaveOccurred())
 

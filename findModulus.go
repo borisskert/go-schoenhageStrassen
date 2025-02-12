@@ -12,8 +12,17 @@ import (
 3. Select some integer k≥1 and define N=kn+1 as the working modulus. We require N≥M, and N to be a prime number. Dirichlet’s theorem guarantees that for any n and M, there exists some choice of k to make N be prime.
 4. Because N is prime, the multiplicative group of ℤN has size φ(N)=N−1=kn. Furthermore, the group must have at least one generator g, which is also a primitive (N−1)th root of unity.
 5. Define ω≡gk mod N. We have ωn=gkn=gN−1=gφ(N)≡1 mod N due to Euler’s theorem. Furthermore because g is a generator, we know that ωi=gik≢1 for 1≤i<n, because ik<nk=N−1. Hence ω is a primitive nth root of unity, as required by the DFT of length n.
-6. The rest of the procedure for the forward and inverse transforms is identical to the complex DFT. Moreover, the NTT can be modified to implement a fast Fourier transform algorithm such as Cooley–Tukey.
+6. The rest of the procedure for the forward and inverse transforms is identical to the complex DFT. Moreover, the ntt can be modified to implement a fast Fourier transform algorithm such as Cooley–Tukey.
 */
+func findModulus32(A []int32) (Modulus, Generator, Omega, OmegaInverse, error) {
+	n := int64(len(A))
+
+	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).
+	m := slices.Max(A)
+
+	return findModulusMN(int64(m), n)
+}
+
 func findModulus(A []int64) (Modulus, Generator, Omega, OmegaInverse, error) {
 	n := int64(len(A))
 

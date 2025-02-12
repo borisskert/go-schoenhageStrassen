@@ -16,10 +16,10 @@ func schoenhageStrassenMultiply(A, B []int64) []int32 {
 	}
 
 	// Step 1: Apply NTT to both inputs
-	A_ntt := NTT(A, int64(omega), int64(mod))
+	A_ntt := ntt(A, int64(omega), int64(mod))
 	fmt.Println("A_ntt:", A_ntt)
 
-	B_ntt := NTT(B, int64(omega), int64(mod))
+	B_ntt := ntt(B, int64(omega), int64(mod))
 	fmt.Println("B_ntt:", B_ntt)
 
 	// Step 2: Pointwise multiplication
@@ -27,7 +27,7 @@ func schoenhageStrassenMultiply(A, B []int64) []int32 {
 	fmt.Println("C_ntt:", C_ntt)
 
 	// Step 3: Apply INTT to get the final coefficients
-	C := INTT(C_ntt, int64(omegaInv), int64(mod))
+	C := intt(C_ntt, int64(omegaInv), int64(mod))
 	fmt.Println("C:", C)
 
 	// Ensure the final result is non-negative
@@ -45,7 +45,7 @@ func schoenhageStrassenMultiply(A, B []int64) []int32 {
 	return result
 }
 
-// Pointwise multiplication of two NTT-transformed polynomials
+// Pointwise multiplication of two ntt-transformed polynomials
 func pointwiseMultiply(A, B []int64, mod int64) []int64 {
 	n := len(A)
 	C := make([]int64, n)
