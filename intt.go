@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func INTT(a []int64, omegaInv int64, M int64) []int32 {
 	n := int64(len(a))
 
@@ -21,8 +23,17 @@ func INTT(a []int64, omegaInv int64, M int64) []int32 {
 		}
 	}
 
-	nInv := modExp(n, M-2, M) // Modular Inverse of n
-	for i := range result {
+	//nInv := modExp(n, M-2, M) // Modular Inverse of n
+	nInv := modInverse(n, M) // Compute modular inverse of n
+
+	fmt.Println("nInv:", nInv, " for n:", n)
+
+	if n*nInv%M != 1 {
+		fmt.Println("n * nInv % M != 1")
+		return nil
+	}
+
+	for i := 0; i < len(result); i++ {
 		result[i] = (result[i] * nInv) % M
 	}
 
@@ -37,6 +48,8 @@ func INTT(a []int64, omegaInv int64, M int64) []int32 {
 			shrinking = false
 		}
 	}
+
+	fmt.Println("INTT result32:", result32[:size])
 
 	return result32[:size]
 }

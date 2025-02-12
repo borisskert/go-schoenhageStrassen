@@ -1,10 +1,13 @@
 package main
 
-func NTT(A []int32, omega int64, M int64) []int64 {
-	n := int64(len(A))
-	n = NextPowerOf2(n) // Ensure n is a power of 2
+import "fmt"
 
-	result := BitReverseCopyN(A, NextPowerOf2(n)) // Ensure bit-reversed order
+func NTT(A []int32, omega int64, M int64) []int64 {
+	fmt.Println("NTT A:", A)
+
+	n := NextPowerOf2(int64(len(A)))
+
+	result := BitReverseCopyN(A, n) // Ensure bit-reversed order
 
 	for length := int64(2); length <= n; length *= 2 {
 		wLen := modExp(omega, n/length, M)
