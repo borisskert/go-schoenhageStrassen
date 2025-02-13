@@ -1,8 +1,9 @@
-package main
+package arithmetic_test
 
 import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	. "go-schoenhageStrassen/arithmetic"
 )
 
 var _ = Describe("modSub", func() {
@@ -11,7 +12,7 @@ var _ = Describe("modSub", func() {
 		a := uint64(4)
 		b := uint64(1)
 
-		result := modSub(a, b, mod)
+		result := ModSub(a, b, mod)
 		Expect(result).To(BeNumerically("==", 3))
 	})
 
@@ -20,7 +21,7 @@ var _ = Describe("modSub", func() {
 		a := uint64(4)
 		b := uint64(3)
 
-		result := modSub(a, b, mod)
+		result := ModSub(a, b, mod)
 		Expect(result).To(BeNumerically("==", 1))
 	})
 
@@ -29,7 +30,7 @@ var _ = Describe("modSub", func() {
 		a := uint64(4)
 		b := uint64(4)
 
-		result := modSub(a, b, mod)
+		result := ModSub(a, b, mod)
 		Expect(result).To(BeNumerically("==", 0))
 	})
 
@@ -38,7 +39,7 @@ var _ = Describe("modSub", func() {
 		a := uint64(4)
 		b := uint64(5)
 
-		result := modSub(a, b, mod)
+		result := ModSub(a, b, mod)
 		Expect(result).To(BeNumerically("==", 10))
 	})
 
@@ -47,7 +48,7 @@ var _ = Describe("modSub", func() {
 		a := uint64(4)
 		b := uint64(7)
 
-		result := modSub(a, b, mod)
+		result := ModSub(a, b, mod)
 		Expect(result).To(BeNumerically("==", 8))
 	})
 
@@ -56,7 +57,7 @@ var _ = Describe("modSub", func() {
 		a := uint64(4)
 		b := uint64(11)
 
-		result := modSub(a, b, mod)
+		result := ModSub(a, b, mod)
 		Expect(result).To(BeNumerically("==", 4))
 	})
 
@@ -65,7 +66,7 @@ var _ = Describe("modSub", func() {
 		a := uint64(4)
 		b := uint64(21)
 
-		result := modSub(a, b, mod)
+		result := ModSub(a, b, mod)
 		Expect(result).To(BeNumerically("==", 5))
 	})
 
@@ -74,7 +75,7 @@ var _ = Describe("modSub", func() {
 		a := uint64(23)
 		b := uint64(2)
 
-		result := modSub(a, b, mod)
+		result := ModSub(a, b, mod)
 		Expect(result).To(BeNumerically("==", 10))
 	})
 
@@ -83,7 +84,7 @@ var _ = Describe("modSub", func() {
 		a := uint64(1)
 		b := uint64(4294967295)
 
-		result := modSub(a, b, mod)
+		result := ModSub(a, b, mod)
 		Expect(result).To(BeNumerically("==", 17))
 	})
 })

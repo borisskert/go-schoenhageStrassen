@@ -1,12 +1,12 @@
-package main
+package arithmetic
 
 // Fermat’s Little Theorem (When mod is Prime)
 func modInverseFermat(n, mod uint64) uint64 {
-	return modExp(n, mod-2, mod) // Uses modExp function from before
+	return ModExp(n, mod-2, mod) // Uses modExp function from before
 }
 
 // Compute modular inverse using Extended Euclidean Algorithm
-func modInverse(n, mod uint64) uint64 {
+func ModInverse(n, mod uint64) uint64 {
 	g, x, _ := extendedGCD(n, mod)
 	if g != 1 {
 		panic("Inverse doesn't exist") // Only exists if gcd(n, mod) = 1

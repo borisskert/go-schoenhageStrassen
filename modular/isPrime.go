@@ -1,4 +1,4 @@
-package main
+package modular
 
 func isPrime(n uint64) bool {
 	if n < 2 {

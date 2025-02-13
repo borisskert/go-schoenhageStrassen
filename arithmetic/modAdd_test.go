@@ -1,8 +1,9 @@
-package main
+package arithmetic_test
 
 import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	. "go-schoenhageStrassen/arithmetic"
 )
 
 var _ = Describe("modAdd", func() {
@@ -11,7 +12,7 @@ var _ = Describe("modAdd", func() {
 		a := uint64(3)
 		b := uint64(4)
 
-		result := modAdd(a, b, mod)
+		result := ModAdd(a, b, mod)
 		Expect(result).To(BeNumerically("==", 7))
 	})
 
@@ -20,7 +21,7 @@ var _ = Describe("modAdd", func() {
 		a := uint64(6)
 		b := uint64(4)
 
-		result := modAdd(a, b, mod)
+		result := ModAdd(a, b, mod)
 		Expect(result).To(BeNumerically("==", 10))
 	})
 
@@ -29,7 +30,7 @@ var _ = Describe("modAdd", func() {
 		a := uint64(6)
 		b := uint64(7)
 
-		result := modAdd(a, b, mod)
+		result := ModAdd(a, b, mod)
 		Expect(result).To(BeNumerically("==", 2))
 	})
 
@@ -38,7 +39,7 @@ var _ = Describe("modAdd", func() {
 		a := uint64(10)
 		b := uint64(10)
 
-		result := modAdd(a, b, mod)
+		result := ModAdd(a, b, mod)
 		Expect(result).To(BeNumerically("==", 9))
 	})
 
@@ -47,7 +48,7 @@ var _ = Describe("modAdd", func() {
 		a := uint64(11)
 		b := uint64(10)
 
-		result := modAdd(a, b, mod)
+		result := ModAdd(a, b, mod)
 		Expect(result).To(BeNumerically("==", 10))
 	})
 
@@ -56,7 +57,7 @@ var _ = Describe("modAdd", func() {
 		a := uint64(11)
 		b := uint64(11)
 
-		result := modAdd(a, b, mod)
+		result := ModAdd(a, b, mod)
 		Expect(result).To(BeNumerically("==", 0))
 	})
 
@@ -65,7 +66,7 @@ var _ = Describe("modAdd", func() {
 		a := uint64(4294967295)
 		b := uint64(4294967295)
 
-		result := modAdd(a, b, mod)
+		result := ModAdd(a, b, mod)
 		Expect(result).To(BeNumerically("==", 4294967279))
 	})
 })

@@ -1,8 +1,9 @@
-package main
+package arithmetic_test
 
 import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	. "go-schoenhageStrassen/arithmetic"
 )
 
 var _ = Describe("modInverse", func() {
@@ -10,7 +11,7 @@ var _ = Describe("modInverse", func() {
 		mod := uint64(11)
 		n := uint64(3)
 
-		inverse := modInverse(n, mod)
+		inverse := ModInverse(n, mod)
 		Expect(inverse * n % mod).To(BeNumerically("==", 1))
 	})
 
@@ -18,7 +19,7 @@ var _ = Describe("modInverse", func() {
 		mod := uint64(17)
 		n := uint64(8)
 
-		inverse := modInverse(n, mod)
+		inverse := ModInverse(n, mod)
 		Expect(inverse * n % mod).To(BeNumerically("==", 1))
 	})
 
@@ -26,7 +27,7 @@ var _ = Describe("modInverse", func() {
 		mod := uint64(4294967297)
 		n := uint64(8)
 
-		inverse := modInverse(n, mod)
+		inverse := ModInverse(n, mod)
 		Expect(inverse * n % mod).To(BeNumerically("==", 1))
 	})
 
@@ -34,15 +35,15 @@ var _ = Describe("modInverse", func() {
 		mod := uint64(4294967297)
 		n := uint64(4)
 
-		inverse := modInverse(n, mod)
-		Expect(modMul(inverse, n, mod)).To(BeNumerically("==", 1))
+		inverse := ModInverse(n, mod)
+		Expect(ModMul(inverse, n, mod)).To(BeNumerically("==", 1))
 	})
 
 	It("inv 3 mod 4294967297", func() {
 		mod := uint64(4294967297)
 		n := uint64(3)
 
-		inverse := modInverse(n, mod)
+		inverse := ModInverse(n, mod)
 		Expect(inverse * n % mod).To(BeNumerically("==", 1))
 	})
 

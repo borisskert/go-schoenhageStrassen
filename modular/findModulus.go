@@ -1,7 +1,8 @@
-package main
+package modular
 
 import (
 	"fmt"
+	. "go-schoenhageStrassen/arithmetic"
 	"slices"
 )
 
@@ -23,7 +24,7 @@ func findModulus32(A []uint32) (Modulus, Omega, OmegaInverse, error) {
 	return findModulusMN(uint64(m), uint64(n))
 }
 
-func findModulus64(A []uint64) (Modulus, Omega, OmegaInverse, error) {
+func FindModulus64(A []uint64) (Modulus, Omega, OmegaInverse, error) {
 	n := int64(len(A))
 
 	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).
@@ -32,7 +33,7 @@ func findModulus64(A []uint64) (Modulus, Omega, OmegaInverse, error) {
 	return findModulusMN(uint64(m), uint64(n))
 }
 
-func findModulus16(A []uint16) (Modulus, Omega, OmegaInverse, error) {
+func FindModulus16(A []uint16) (Modulus, Omega, OmegaInverse, error) {
 	n := int64(len(A))
 
 	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).
@@ -65,9 +66,8 @@ func findModulusTwo(A, B []uint64) (Modulus, Omega, OmegaInverse, error) {
 	return findModulusMN(uint64(m), uint64(n))
 }
 
-func findModulus16Two(A, B []uint16) (Modulus, Omega, OmegaInverse, error) {
-	//n := len(A) + len(B) + 1
-	n := len(A) + len(B)
+func FindModulus16Two(A, B []uint16) (Modulus, Omega, OmegaInverse, error) {
+	n := max(len(A), len(B))
 
 	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).
 	Ma := uint64(slices.Max(A))
@@ -98,8 +98,8 @@ func findModulusMN(m uint64, n uint64) (Modulus, Omega, OmegaInverse, error) {
 	}
 
 	fmt.Println("ω:", *omega, "ω(Inv):", *omegaInv)
-	fmt.Println("ω ^ n =", modExp(*omega, n, N))                    // should be 1 if ω is correct
-	fmt.Println("ω * ω(Inv) mod M =", modMul(*omega, *omegaInv, N)) // should be 1
+	fmt.Println("ω ^ n =", ModExp(*omega, n, N))                    // should be 1 if ω is correct
+	fmt.Println("ω * ω(Inv) mod M =", ModMul(*omega, *omegaInv, N)) // should be 1
 
 	return Modulus(N), Omega(*omega), OmegaInverse(*omegaInv), nil
 }
@@ -115,7 +115,7 @@ func findOmega(N uint64, n, k uint64) (*uint64, *uint64, error) {
 	fmt.Println("generator:", *g)
 
 	// 4. Compute `ω = g^k mod N`
-	omega := modExp(*g, k, N)
+	omega := ModExp(*g, k, N)
 	fmt.Println("computed (g ^ k mod N) ω:", omega)
 
 	// 5. Validate `ω` is a primitive nth root of unity
@@ -124,26 +124,24 @@ func findOmega(N uint64, n, k uint64) (*uint64, *uint64, error) {
 		return nil, nil, fmt.Errorf("invalid ω")
 	}
 
-	if modExp(omega, n, N) != 1 {
+	if ModExp(omega, n, N) != 1 {
 		fmt.Println("ω is invalid, ω ^ n mod N should be 1")
 		return nil, nil, fmt.Errorf("invalid ω")
 	}
 
-	if modExp(omega, k, N) == 1 {
+	if ModExp(omega, k, N) == 1 {
 		fmt.Println("ω is invalid, ω ^ k mod N should not be 1")
 		return nil, nil, fmt.Errorf("invalid ω")
 	}
 
 	// 6. Compute modular inverse of ω
-	omegaInv := modInverse(omega, N)
+	omegaInv := ModInverse(omega, N)
 
 	return &omega, &omegaInv, nil
 }
 
 func findWorkingModulus(m uint64, n uint64) (uint64, uint64) {
-	M := min(m*n+1, 18446744069414584321)
-	//M := min(m*n + 1)
-	//M := uint64(18446744069414584321)
+	M := m*n + 1
 	return findNextWorkingModulus(M, n)
 }
 

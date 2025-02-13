@@ -1,4 +1,4 @@
-package main
+package modular
 
 // Factorize returns the prime factors of a given positive int64 number
 func factorize(n uint64) []uint64 {

@@ -1,9 +1,9 @@
-package main
+package arithmetic
 
 import "math/bits"
 
 // Modular exponentiation: (base^exp) % mod
-func modExp(base, exp, mod uint64) uint64 {
+func ModExp(base, exp, mod uint64) uint64 {
 	if mod == 1 {
 		return 0 // Special case: Any number mod 1 is always 0
 	}

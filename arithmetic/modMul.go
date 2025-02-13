@@ -1,8 +1,8 @@
-package main
+package arithmetic
 
 import "math/bits"
 
-func modMul(a, b, mod uint64) uint64 {
+func ModMul(a, b, mod uint64) uint64 {
 	if a == 0 || b == 0 || mod == a || mod == b {
 		return 0
 	}

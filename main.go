@@ -1,5 +1,7 @@
 package main
 
+import "go-schoenhageStrassen/schoenhageStrassen"
+
 func main() {
-	multiplyExample()
+	schoenhageStrassen.Example()
 }

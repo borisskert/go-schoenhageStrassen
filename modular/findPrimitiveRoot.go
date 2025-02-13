@@ -1,6 +1,9 @@
-package main
+package modular
 
-import "errors"
+import (
+	"errors"
+	. "go-schoenhageStrassen/arithmetic"
+)
 
 // // Fast modular exponentiation: (base^exp) % mod
 func findPrimitiveRoot(N uint64) (*uint64, error) {
@@ -13,7 +16,7 @@ func findPrimitiveRoot(N uint64) (*uint64, error) {
 	for g := uint64(2); g < N; g++ {
 		valid := true
 		for _, f := range factors {
-			if modExp(g, phi/f, N) == 1 {
+			if ModExp(g, phi/f, N) == 1 {
 				valid = false
 				break
 			}

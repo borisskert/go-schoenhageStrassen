@@ -1,6 +1,6 @@
-package main
+package arithmetic
 
-func modSub(a, b, mod uint64) uint64 {
+func ModSub(a, b, mod uint64) uint64 {
 	a %= mod
 	b %= mod
 

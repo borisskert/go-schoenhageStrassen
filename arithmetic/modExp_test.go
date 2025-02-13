@@ -1,8 +1,9 @@
-package main
+package arithmetic_test
 
 import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	. "go-schoenhageStrassen/arithmetic"
 )
 
 var _ = Describe("modExp", func() {
@@ -11,7 +12,7 @@ var _ = Describe("modExp", func() {
 		b := uint64(4294967355)
 		mod := uint64(4294967357)
 
-		result := modExp(a, b, mod)
+		result := ModExp(a, b, mod)
 		Expect(result).To(BeNumerically("==", 410296033))
 	})
 
@@ -20,7 +21,7 @@ var _ = Describe("modExp", func() {
 		b := uint64(4294967295)
 		mod := uint64(4294967311)
 
-		result := modExp(a, b, mod)
+		result := ModExp(a, b, mod)
 		Expect(result).To(BeNumerically("==", 2023406822))
 	})
 })
