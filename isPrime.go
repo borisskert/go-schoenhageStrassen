@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func isPrime(n int64) bool {
 	if n < 2 {
 		return false
@@ -22,20 +20,10 @@ func isPrime(n int64) bool {
 	return true
 }
 
-func findLargePrime(M int64) int64 {
+func findNextPrime(M int64) int64 {
 	for n := M + 1; ; n++ {
 		if isPrime(n) {
 			return n
 		}
 	}
-}
-
-func checkPrimeExample() {
-	n := int64(4294967297) // M = 2^32 + 1
-	fmt.Println("Is Prime:", isPrime(n))
-}
-
-func findLargePrimeExample() {
-	n := findLargePrime(4294967297)
-	fmt.Println("Largest Prime:", n)
 }

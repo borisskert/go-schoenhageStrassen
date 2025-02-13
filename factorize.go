@@ -34,13 +34,3 @@ func factorize(n int64) []int64 {
 
 	return factors
 }
-
-func factorize2(n int64) (int64, int64) {
-	for i := sqrt(n) - 1; i > 1; i-- {
-		if n%i == 0 {
-			return i, n / i
-		}
-	}
-
-	return 1, n
-}

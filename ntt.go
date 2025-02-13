@@ -5,9 +5,8 @@ import "fmt"
 func NTT(A []int32, omega int64, M int64) []int64 {
 	fmt.Println("NTT input:", A)
 
-	n := NextPowerOf2(int64(len(A)))
-
-	result := BitReverseCopyN(A, n) // Ensure bit-reversed order
+	n := nextPowerOf2(int64(len(A)))
+	result := bitReverseCopyN(A, n)
 
 	for length := int64(2); length <= n; length *= 2 {
 		wLen := modExp(omega, n/length, M)

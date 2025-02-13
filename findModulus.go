@@ -35,26 +35,21 @@ func findModulus32xTwo(A, B []int32) (Modulus, Omega, OmegaInverse, error) {
 	return findModulusMN(int64(m), int64(n))
 }
 
-func findModulus(A []int64) (Modulus, Omega, OmegaInverse, error) {
-	n := int64(len(A))
-
-	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).
-	m := slices.Max(A)
-
-	return findModulusMN(m, n)
-}
-
 func findModulusMN(m int64, n int64) (Modulus, Omega, OmegaInverse, error) {
-	fmt.Println("(largest value in array) m:", m)
-	fmt.Println("(array length) n:", n)
-
 	// 1. Compute minimum modulus M to prevent overflow
 	N, k := findWorkingModulus(m, n)
+
+	fmt.Println("Actual working modulus:", N)
+	fmt.Println("k:", k)
 
 	omega, omegaInv, err := findOmega(N, n, k)
 	for err != nil {
 		// If ω is invalid, find the next working modulus
 		N, k = findNextWorkingModulus(N+1, n)
+
+		fmt.Println("Actual working modulus:", N)
+		fmt.Println("k:", k)
+
 		omega, omegaInv, err = findOmega(N, n, k)
 	}
 
@@ -66,9 +61,6 @@ func findModulusMN(m int64, n int64) (Modulus, Omega, OmegaInverse, error) {
 }
 
 func findOmega(N int64, n, k int64) (int64, int64, error) {
-	fmt.Println("Actual working modulus:", N)
-	fmt.Println("k:", k)
-
 	// 3. Find a primitive root `g`
 	g := findPrimitiveRoot(N)
 	fmt.Println("generator:", g)
@@ -100,9 +92,7 @@ func findOmega(N int64, n, k int64) (int64, int64, error) {
 }
 
 func findWorkingModulus(m int64, n int64) (int64, int64) {
-	M := min(m*m*n+1, 1<<32+1)
-	fmt.Println("Minimum working modulus M:", M)
-
+	M := min(m*m*n+1, 1<<31+1)
 	return findNextWorkingModulus(M, n)
 }
 
@@ -112,13 +102,13 @@ func findNextWorkingModulus(M int64, n int64) (int64, int64) {
 	if isPrime(M) {
 		N = M
 	} else {
-		N = findLargePrime(M)
+		N = findNextPrime(M)
 	}
 
 	k := (N - 1) / n
 
 	for k*n != N-1 {
-		N = findLargePrime(N)
+		N = findNextPrime(N)
 		k = (N - 1) / n
 	}
 
@@ -127,15 +117,6 @@ func findNextWorkingModulus(M int64, n int64) (int64, int64) {
 
 type Modulus int64
 
-type Generator int64
-
 type Omega int64
 
 type OmegaInverse int64
-
-func sqrt(n int64) int64 {
-	var x int64
-	for x = 1; x*x < n; x++ {
-	}
-	return x
-}

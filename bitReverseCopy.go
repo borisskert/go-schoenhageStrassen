@@ -10,7 +10,7 @@ func BitReverseCopy(a []int64) []int64 {
 	return result
 }
 
-func BitReverseCopyN(a []int32, n int64) []int64 {
+func bitReverseCopyN(a []int32, n int64) []int64 {
 	result := make([]int64, n)
 	for i := int64(0); i < n; i++ {
 		rev := ReverseBits(i, n)

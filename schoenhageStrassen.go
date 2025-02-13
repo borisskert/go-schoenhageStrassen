@@ -4,6 +4,10 @@ import "fmt"
 
 // Schönhage–Strassen Multiplication
 func schoenhageStrassenMultiply(A, B []int32) []int32 {
+	if len(A) < 2 || len(B) < 2 {
+		panic("Input polynomials must have at least 2 coefficients")
+	}
+
 	// Step 1: Determine the required length
 	n := len(A)
 	m := len(B)
@@ -34,6 +38,8 @@ func schoenhageStrassenMultiply(A, B []int32) []int32 {
 	// Step 5: Pointwise multiplication
 	C_ntt := pointwiseMultiply(A_ntt, B_ntt, int64(mod))
 
+	fmt.Println("pointwise mul:", C_ntt)
+
 	// Step 6: Apply INTT to get the final coefficients
 	C := INTT(C_ntt, int64(omegaInv), int64(mod))
 
@@ -42,20 +48,8 @@ func schoenhageStrassenMultiply(A, B []int32) []int32 {
 		C = C[:len(C)-1]
 	}
 
-	return C
-}
+	fmt.Println("Final result:", C)
 
-func propagateCarry(C []int32, base int32) []int32 {
-	carry := int32(0)
-	for i := 0; i < len(C); i++ {
-		C[i] += carry
-		carry = C[i] / base
-		C[i] %= base
-	}
-	// If there's a carry left, append it to the result
-	if carry > 0 {
-		C = append(C, carry)
-	}
 	return C
 }
 

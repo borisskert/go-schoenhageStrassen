@@ -35,7 +35,7 @@ func normalizeMod(x, mod int64) int64 {
 	x %= mod
 
 	for x < 0 {
-		x += mod // If negative, shift into positive range
+		x += mod
 	}
 
 	return x

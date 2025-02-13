@@ -355,4 +355,18 @@ var _ = Describe("INTT", func() {
 		A_recovered := INTT(A_ntt, int64(omegaInv), int64(mod))
 		Expect(A_recovered).To(Equal(A))
 	})
+
+	It("INTT(NTT([2147483647, 2147483647, 2147483647, 2147483647]))", func() {
+		A := []int32{2147483647, 2147483647, 2147483647, 2147483647}
+
+		mod, omega, omegaInv, err := findModulus32(A)
+
+		Expect(err).NotTo(HaveOccurred())
+
+		A_ntt := NTT(A, int64(omega), int64(mod))
+		Expect(A_ntt).NotTo(Equal(A))
+
+		A_recovered := INTT(A_ntt, int64(omegaInv), int64(mod))
+		Expect(A_recovered).To(Equal(A))
+	})
 })

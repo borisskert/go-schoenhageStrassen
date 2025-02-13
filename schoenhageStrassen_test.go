@@ -59,4 +59,13 @@ var _ = Describe("schoenhageStrassenMultiply", func() {
 
 		Expect(result).To(Equal([]int32{1, 4, 10, 20, 25, 24, 16})) // TODO is this correct?
 	})
+
+	It("[2147483647] * [2]", func() {
+		A := []int32{0, 2147483647}
+		B := []int32{0, 2}
+
+		result := schoenhageStrassenMultiply(A, B)
+
+		Expect(result).To(Equal([]int32{2147483646, 1}))
+	})
 })
