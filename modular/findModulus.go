@@ -15,23 +15,6 @@ import (
 5. Define ω≡gk mod N. We have ωn=gkn=gN−1=gφ(N)≡1 mod N due to Euler’s theorem. Furthermore because g is a generator, we know that ωi=gik≢1 for 1≤i<n, because ik<nk=N−1. Hence ω is a primitive nth root of unity, as required by the DFT of length n.
 6. The rest of the procedure for the forward and inverse transforms is identical to the complex DFT. Moreover, the ntt can be modified to implement a fast Fourier transform algorithm such as Cooley–Tukey.
 */
-func findModulus32(A []uint32) (Modulus, Omega, OmegaInverse, error) {
-	n := int64(len(A))
-
-	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).
-	m := slices.Max(A)
-
-	return findModulusMN(uint64(m), uint64(n))
-}
-
-func FindModulus64(A []uint64) (Modulus, Omega, OmegaInverse, error) {
-	n := int64(len(A))
-
-	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).
-	m := slices.Max(A)
-
-	return findModulusMN(uint64(m), uint64(n))
-}
 
 func FindModulus16(A []uint16) (Modulus, Omega, OmegaInverse, error) {
 	n := int64(len(A))
@@ -42,31 +25,7 @@ func FindModulus16(A []uint16) (Modulus, Omega, OmegaInverse, error) {
 	return findModulusMN(uint64(m), uint64(n))
 }
 
-func findModulus32xTwo(A, B []uint32) (Modulus, Omega, OmegaInverse, error) {
-	n := max(len(A), len(B))
-
-	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).
-	Ma := uint64(slices.Max(A))
-	Mb := uint64(slices.Max(B))
-
-	m := Ma * Mb
-
-	return findModulusMN(uint64(m), uint64(n))
-}
-
-func findModulusTwo(A, B []uint64) (Modulus, Omega, OmegaInverse, error) {
-	n := max(len(A), len(B))
-
-	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).
-	Ma := uint64(slices.Max(A))
-	Mb := uint64(slices.Max(B))
-
-	m := Ma * Mb
-
-	return findModulusMN(uint64(m), uint64(n))
-}
-
-func FindModulus16Two(A, B []uint16) (Modulus, Omega, OmegaInverse, error) {
+func FindModulusForTwo16(A, B []uint16) (Modulus, Omega, OmegaInverse, error) {
 	n := max(len(A), len(B))
 
 	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).

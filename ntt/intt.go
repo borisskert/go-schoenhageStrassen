@@ -5,8 +5,8 @@ import (
 	. "go-schoenhageStrassen/arithmetic"
 )
 
-// InttNaive computes the Inverse Number Theoretic Transform.
-func InttNaive(a []uint64, omegaInv uint64, mod uint64) []uint16 {
+// NaiveINTT computes the Inverse Number Theoretic Transform.
+func NaiveINTT(a []uint64, omegaInv uint64, mod uint64) []uint16 {
 	fmt.Println("INTT input:", a)
 
 	n := len(a)
@@ -17,7 +17,7 @@ func InttNaive(a []uint64, omegaInv uint64, mod uint64) []uint16 {
 
 		for j := uint64(0); j < uint64(n); j += 1 {
 			u := ModExp(omegaInv, i*j, mod)
-			v := ModMul(uint64(a[j]), u, mod)
+			v := ModMul(a[j], u, mod)
 			yi = ModAdd(yi, v, mod)
 		}
 
@@ -57,6 +57,5 @@ func InttNaive(a []uint64, omegaInv uint64, mod uint64) []uint16 {
 
 	fmt.Println("INTT output16:", output)
 
-	// Ensure output length matches expected size by trimming or padding
 	return output
 }
