@@ -83,8 +83,17 @@ var _ = Describe("findModulusMN", func() {
 		modulus, omega, omegaInv, err := findModulusMN(65535*65535, 100000)
 
 		Expect(err).NotTo(HaveOccurred())
-		Expect(*modulus).To(BeNumerically("==", 42948362280001))
-		Expect(*omega).To(BeNumerically("==", 5094882205187))
-		Expect(*omegaInv).To(BeNumerically("==", 7328359974866))
+		Expect(*modulus).To(BeNumerically("==", 429483622900001))
+		Expect(*omega).To(BeNumerically("==", 196664381113895))
+		Expect(*omegaInv).To(BeNumerically("==", 45480248106017))
+	})
+
+	It("for m = 65535 * 65535, n = 1000000", func() {
+		modulus, omega, omegaInv, err := findModulusMN(65535*65535, 1000000)
+
+		Expect(err).NotTo(HaveOccurred())
+		Expect(*modulus).To(BeNumerically("==", 4294836228000001))
+		Expect(*omega).To(BeNumerically("==", 2798360728920501))
+		Expect(*omegaInv).To(BeNumerically("==", 912339468719032))
 	})
 })

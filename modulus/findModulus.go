@@ -93,18 +93,12 @@ func findWorkingModulus(m uint64, n uint64) (uint64, uint64) {
 // findNextWorkingModulus efficiently finds the smallest prime N such that N = kn + 1
 func findNextWorkingModulus(M uint64, n uint64) (uint64, uint64) {
 	// 2. Find the smallest prime `N` such that N = kn + 1
-	var N uint64
-	if integer.IsPrime(M) {
-		N = M
-	} else {
-		N = integer.FindNextPrime(M)
-	}
-
+	N := M
 	k := (N - 1) / n
 
-	for k*n != N-1 {
-		N = integer.FindNextPrime(N)
-		k = (N - 1) / n
+	for !integer.IsPrime(N) {
+		k++
+		N = k*n + 1
 	}
 
 	return N, k
