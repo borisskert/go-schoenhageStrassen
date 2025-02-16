@@ -24,7 +24,7 @@ func (c cooleyTukeyIterative) INTT(a []uint64, omega uint64, mod uint64) []uint1
 	return inttCooleyTukeyIterative(a, omega, mod)
 }
 
-func NewCooleyTukeyIterative() ntt.NumberTheoreticTransforms {
+func IterativeAlgorithm() ntt.NumberTheoreticTransforms {
 	return &cooleyTukeyIterative{}
 }
 

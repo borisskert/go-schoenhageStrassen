@@ -6,13 +6,36 @@ import (
 	"go-schoenhageStrassen/array"
 	"go-schoenhageStrassen/misc"
 	"go-schoenhageStrassen/modular"
-	"go-schoenhageStrassen/ntt/cooleyTukey"
+	NTT "go-schoenhageStrassen/ntt"
 )
 
-// var ntt = cooleyTukey.NewCooleyTukeyIterative()
-var ntt = cooleyTukey.NewCooleyTukeyRecursive()
+type SchoenhageStrassen struct {
+	ntt NTT.NumberTheoreticTransforms
+}
 
-func Multiply16(a, b []uint16) []uint16 {
+func (s SchoenhageStrassen) Multiply16(a, b []uint16) []uint16 {
+	return multiply16(a, b, s.ntt.NTT, s.ntt.INTT)
+}
+
+func (s SchoenhageStrassen) Multiply32(a, b []uint32) []uint32 {
+	return multiply32(a, b, s.ntt.NTT, s.ntt.INTT)
+}
+
+func (s SchoenhageStrassen) Multiply64(a, b []uint64) []uint64 {
+	return multiply64(a, b, s.ntt.NTT, s.ntt.INTT)
+}
+
+func NewSchoenhageStrassen(ntt NTT.NumberTheoreticTransforms) *SchoenhageStrassen {
+	return &SchoenhageStrassen{
+		ntt: ntt,
+	}
+}
+
+func multiply16(
+	a, b []uint16,
+	ntt func([]uint16, uint64, uint64) []uint64,
+	intt func([]uint64, uint64, uint64) []uint16,
+) []uint16 {
 	fmt.Println("a:", a)
 	fmt.Println("b:", b)
 
@@ -26,8 +49,8 @@ func Multiply16(a, b []uint16) []uint16 {
 		panic(err)
 	}
 
-	nttA := ntt.NTT(aPadded, uint64(omega), uint64(mod))
-	nttB := ntt.NTT(bPadded, uint64(omega), uint64(mod))
+	nttA := ntt(aPadded, uint64(omega), uint64(mod))
+	nttB := ntt(bPadded, uint64(omega), uint64(mod))
 
 	fmt.Println("nttA:", nttA)
 	fmt.Println("nttB:", nttB)
@@ -40,28 +63,36 @@ func Multiply16(a, b []uint16) []uint16 {
 
 	fmt.Println("productNTT:", productNTT)
 
-	result := ntt.INTT(productNTT, uint64(omegaInv), uint64(mod))
+	result := intt(productNTT, uint64(omegaInv), uint64(mod))
 
 	fmt.Println("result (INTT):", result)
 
 	return array.TrimLeadingZeros16(result)
 }
 
-func Multiply32(a, b []uint32) []uint32 {
+func multiply32(
+	a, b []uint32,
+	ntt func([]uint16, uint64, uint64) []uint64,
+	intt func([]uint64, uint64, uint64) []uint16,
+) []uint32 {
 	a32 := array.Split32To16(a)
 	b32 := array.Split32To16(b)
 
-	result16 := Multiply16(a32, b32)
+	result16 := multiply16(a32, b32, ntt, intt)
 	result32 := array.Combine16To32(result16)
 
 	return array.TrimLeadingZeros32(result32)
 }
 
-func Multiply64(a, b []uint64) []uint64 {
+func multiply64(
+	a, b []uint64,
+	ntt func([]uint16, uint64, uint64) []uint64,
+	intt func([]uint64, uint64, uint64) []uint16,
+) []uint64 {
 	a16 := array.Split64To16(a)
 	b16 := array.Split64To16(b)
 
-	result16 := Multiply16(a16, b16)
+	result16 := multiply16(a16, b16, ntt, intt)
 	result64 := array.Combine16To64(result16)
 
 	return array.TrimLeadingZeros64(result64)

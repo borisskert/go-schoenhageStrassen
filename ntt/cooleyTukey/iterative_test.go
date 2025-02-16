@@ -11,7 +11,7 @@ var _ = Describe("CooleyTukey (iterative)", func() {
 	var nttAlgorithm ntt.NumberTheoreticTransforms
 
 	BeforeEach(func() {
-		nttAlgorithm = NewCooleyTukeyIterative()
+		nttAlgorithm = IterativeAlgorithm()
 	})
 
 	It("[6, 0, 10, 7, 2] -> [3, 8, 1, 6, 0, 4, 6, 9]", func() {

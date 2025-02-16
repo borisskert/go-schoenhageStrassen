@@ -21,7 +21,7 @@ func (c cooleyTukeyRecursive) INTT(a []uint64, omega uint64, mod uint64) []uint1
 	return cooleyTukeyINTT(a, omega, mod)
 }
 
-func NewCooleyTukeyRecursive() ntt.NumberTheoreticTransforms {
+func RecursiveAlgorithm() ntt.NumberTheoreticTransforms {
 	return &cooleyTukeyRecursive{}
 }
 
