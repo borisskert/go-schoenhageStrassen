@@ -1,6 +1,6 @@
-package main
+package integer
 
-func isPrime(n uint64) bool {
+func IsPrime(n uint64) bool {
 	if n < 2 {
 		return false
 	}
@@ -20,9 +20,9 @@ func isPrime(n uint64) bool {
 	return true
 }
 
-func findNextPrime(M uint64) uint64 {
+func FindNextPrime(M uint64) uint64 {
 	for n := M + 1; ; n++ {
-		if isPrime(n) {
+		if IsPrime(n) {
 			return n
 		}
 	}

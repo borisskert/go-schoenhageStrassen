@@ -3,7 +3,7 @@ package cooleyTukey
 import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"go-schoenhageStrassen/modular"
+	"go-schoenhageStrassen/modulus"
 	"go-schoenhageStrassen/ntt"
 )
 
@@ -83,7 +83,7 @@ var _ = Describe("CooleyTukey (recursive)", func() {
 	It("[4,1,4,2,1,3,5,6] -> [26,338,228,115,2,457,437,448]", func() {
 		A := []uint16{4, 1, 4, 2, 1, 3, 5, 6}
 
-		mod, omega, omegaInv, err := modular.FindModulus16(A)
+		mod, omega, omegaInv, err := modulus.FindModulus16(A)
 
 		Expect(err).NotTo(HaveOccurred())
 
@@ -95,7 +95,7 @@ var _ = Describe("CooleyTukey (recursive)", func() {
 	It("INTT(NTT([6, 0, 10, 7, 2]))", func() {
 		A := []uint16{6, 0, 10, 7, 2}
 
-		mod, omega, omegaInv, err := modular.FindModulus16(A)
+		mod, omega, omegaInv, err := modulus.FindModulus16(A)
 
 		Expect(err).NotTo(HaveOccurred())
 
@@ -107,7 +107,7 @@ var _ = Describe("CooleyTukey (recursive)", func() {
 	It("INTT(NTT([6, 0, 10, 7, 2, 0, 0, 0]))", func() {
 		A := []uint16{6, 0, 10, 7, 2, 0, 0, 0}
 
-		mod, omega, omegaInv, err := modular.FindModulus16(A)
+		mod, omega, omegaInv, err := modulus.FindModulus16(A)
 
 		Expect(err).NotTo(HaveOccurred())
 

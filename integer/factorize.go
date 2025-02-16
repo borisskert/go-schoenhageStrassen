@@ -1,7 +1,7 @@
-package main
+package integer
 
 // Factorize returns the prime factors of a given positive int64 number
-func factorize(n uint64) []uint64 {
+func Factorize(n uint64) []uint64 {
 	var factors []uint64
 
 	// Handle factor 2 separately

@@ -5,7 +5,7 @@ import (
 	. "go-schoenhageStrassen/arithmetic"
 	"go-schoenhageStrassen/array"
 	"go-schoenhageStrassen/misc"
-	"go-schoenhageStrassen/modular"
+	"go-schoenhageStrassen/modulus"
 	NTT "go-schoenhageStrassen/ntt"
 )
 
@@ -44,13 +44,13 @@ func multiply16(
 	bPadded := array.Pad16(b, n)
 
 	// Choose a suitable modulus and primitive root of unity
-	mod, omega, omegaInv, err := modular.FindModulusForTwo16(aPadded, bPadded)
+	mod, omega, omegaInv, err := modulus.FindModulusForTwo16(aPadded, bPadded)
 	if err != nil {
 		panic(err)
 	}
 
-	nttA := ntt(aPadded, uint64(omega), uint64(mod))
-	nttB := ntt(bPadded, uint64(omega), uint64(mod))
+	nttA := ntt(aPadded, omega, mod)
+	nttB := ntt(bPadded, omega, mod)
 
 	fmt.Println("nttA:", nttA)
 	fmt.Println("nttB:", nttB)
@@ -58,12 +58,12 @@ func multiply16(
 	// Pointwise multiplication in NTT domain
 	productNTT := make([]uint64, n)
 	for i := 0; i < n; i++ {
-		productNTT[i] = ModMul(nttA[i], nttB[i], uint64(mod))
+		productNTT[i] = ModMul(nttA[i], nttB[i], mod)
 	}
 
 	fmt.Println("productNTT:", productNTT)
 
-	result := intt(productNTT, uint64(omegaInv), uint64(mod))
+	result := intt(productNTT, omegaInv, mod)
 
 	fmt.Println("result (INTT):", result)
 

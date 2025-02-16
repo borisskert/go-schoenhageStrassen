@@ -1,8 +1,9 @@
-package modular
+package modulus
 
 import (
 	"fmt"
 	. "go-schoenhageStrassen/arithmetic"
+	"go-schoenhageStrassen/integer"
 	"slices"
 )
 
@@ -16,7 +17,7 @@ import (
 6. The rest of the procedure for the forward and inverse transforms is identical to the complex DFT. Moreover, the ntt can be modified to implement a fast Fourier transform algorithm such as Cooley–Tukey.
 */
 
-func FindModulus16(A []uint16) (Modulus, Omega, OmegaInverse, error) {
+func FindModulus16(A []uint16) (uint64, uint64, uint64, error) {
 	n := int64(len(A))
 
 	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).
@@ -25,7 +26,7 @@ func FindModulus16(A []uint16) (Modulus, Omega, OmegaInverse, error) {
 	return findModulusMN(uint64(m), uint64(n))
 }
 
-func FindModulusForTwo16(A, B []uint16) (Modulus, Omega, OmegaInverse, error) {
+func FindModulusForTwo16(A, B []uint16) (uint64, uint64, uint64, error) {
 	n := max(len(A), len(B))
 
 	// 2. Choose a minimum working modulus M such that 1≤n<M and every input value is in the range [0,M).
@@ -37,7 +38,7 @@ func FindModulusForTwo16(A, B []uint16) (Modulus, Omega, OmegaInverse, error) {
 	return findModulusMN(m, uint64(n))
 }
 
-func findModulusMN(m uint64, n uint64) (Modulus, Omega, OmegaInverse, error) {
+func findModulusMN(m uint64, n uint64) (uint64, uint64, uint64, error) {
 	// 1. Compute minimum modulus M to prevent overflow
 	N, k := findWorkingModulus(m, n)
 
@@ -59,7 +60,7 @@ func findModulusMN(m uint64, n uint64) (Modulus, Omega, OmegaInverse, error) {
 	fmt.Println("ω ^ n =", ModExp(*omega, n, N))                    // should be 1 if ω is correct
 	fmt.Println("ω * ω(Inv) mod M =", ModMul(*omega, *omegaInv, N)) // should be 1
 
-	return Modulus(N), Omega(*omega), OmegaInverse(*omegaInv), nil
+	return N, *omega, *omegaInv, nil
 }
 
 func findOmega(N uint64, n, k uint64) (*uint64, *uint64, error) {
@@ -106,24 +107,18 @@ func findWorkingModulus(m uint64, n uint64) (uint64, uint64) {
 func findNextWorkingModulus(M uint64, n uint64) (uint64, uint64) {
 	// 2. Find the smallest prime `N` such that N = kn + 1
 	var N uint64
-	if isPrime(M) {
+	if integer.IsPrime(M) {
 		N = M
 	} else {
-		N = findNextPrime(M)
+		N = integer.FindNextPrime(M)
 	}
 
 	k := (N - 1) / n
 
 	for k*n != N-1 {
-		N = findNextPrime(N)
+		N = integer.FindNextPrime(N)
 		k = (N - 1) / n
 	}
 
 	return N, k
 }
-
-type Modulus int64
-
-type Omega int64
-
-type OmegaInverse int64
