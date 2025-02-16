@@ -1,9 +1,9 @@
 package arithmetic_test
 
 import (
+	. "github.com/borisskert/go-schoenhageStrassen/arithmetic"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	. "go-schoenhageStrassen/arithmetic"
 )
 
 var _ = Describe("modInverse", func() {

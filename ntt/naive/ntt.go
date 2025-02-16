@@ -1,7 +1,7 @@
 package naive
 
 import (
-	. "go-schoenhageStrassen/arithmetic"
+	. "github.com/borisskert/go-schoenhageStrassen/arithmetic"
 )
 
 // NaiveNTT computes the Number Theoretic Transform of the input slice a.

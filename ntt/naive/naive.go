@@ -1,6 +1,6 @@
 package naive
 
-import "go-schoenhageStrassen/ntt"
+import "github.com/borisskert/go-schoenhageStrassen/ntt"
 
 type naiveNTT struct{}
 

@@ -1,4 +1,4 @@
-module go-schoenhageStrassen
+module github.com/borisskert/go-schoenhageStrassen
 
 go 1.23
 

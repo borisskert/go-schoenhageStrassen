@@ -2,8 +2,8 @@ package modulus
 
 import (
 	"errors"
-	. "go-schoenhageStrassen/arithmetic"
-	"go-schoenhageStrassen/integer"
+	. "github.com/borisskert/go-schoenhageStrassen/arithmetic"
+	"github.com/borisskert/go-schoenhageStrassen/integer"
 )
 
 // // Fast modular exponentiation: (base^exp) % mod

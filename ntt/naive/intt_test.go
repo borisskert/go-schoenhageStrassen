@@ -1,9 +1,9 @@
 package naive
 
 import (
+	"github.com/borisskert/go-schoenhageStrassen/modulus"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"go-schoenhageStrassen/modulus"
 )
 
 var _ = Describe("INTT", func() {

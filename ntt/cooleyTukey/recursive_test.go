@@ -1,10 +1,10 @@
 package cooleyTukey
 
 import (
+	"github.com/borisskert/go-schoenhageStrassen/modulus"
+	"github.com/borisskert/go-schoenhageStrassen/ntt"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"go-schoenhageStrassen/modulus"
-	"go-schoenhageStrassen/ntt"
 )
 
 var _ = Describe("CooleyTukey (recursive)", func() {

@@ -1,11 +1,11 @@
 package schoenhageStrassen_test
 
 import (
+	"github.com/borisskert/go-schoenhageStrassen/ntt/cooleyTukey"
+	"github.com/borisskert/go-schoenhageStrassen/ntt/naive"
+	. "github.com/borisskert/go-schoenhageStrassen/schoenhageStrassen"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"go-schoenhageStrassen/ntt/cooleyTukey"
-	"go-schoenhageStrassen/ntt/naive"
-	. "go-schoenhageStrassen/schoenhageStrassen"
 )
 
 var _ = Describe("Schönhage-Strassen", func() {

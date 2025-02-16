@@ -1,10 +1,10 @@
 package cooleyTukey
 
 import (
-	. "go-schoenhageStrassen/arithmetic"
-	"go-schoenhageStrassen/array"
-	"go-schoenhageStrassen/misc"
-	"go-schoenhageStrassen/ntt"
+	. "github.com/borisskert/go-schoenhageStrassen/arithmetic"
+	"github.com/borisskert/go-schoenhageStrassen/array"
+	"github.com/borisskert/go-schoenhageStrassen/misc"
+	"github.com/borisskert/go-schoenhageStrassen/ntt"
 )
 
 type cooleyTukeyIterative struct{}

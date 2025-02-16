@@ -1,7 +1,7 @@
 package naive
 
 import (
-	. "go-schoenhageStrassen/arithmetic"
+	. "github.com/borisskert/go-schoenhageStrassen/arithmetic"
 )
 
 // inttNaive computes the Inverse Number Theoretic Transform.
