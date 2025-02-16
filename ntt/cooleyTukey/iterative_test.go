@@ -87,7 +87,7 @@ var _ = Describe("CooleyTukey (iterative)", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		result := nttAlgorithm.INTT(nttAlgorithm.NTT(A, uint64(omega), uint64(mod)), uint64(omegaInv), uint64(mod))
+		result := nttAlgorithm.INTT(nttAlgorithm.NTT(A, *omega, *mod), *omegaInv, *mod)
 
 		Expect(result).To(Equal([]uint16{4, 1, 4, 2, 1, 3, 5, 6}))
 	})
@@ -99,7 +99,7 @@ var _ = Describe("CooleyTukey (iterative)", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		result := nttAlgorithm.INTT(nttAlgorithm.NTT(A, uint64(omega), uint64(mod)), uint64(omegaInv), uint64(mod))
+		result := nttAlgorithm.INTT(nttAlgorithm.NTT(A, *omega, *mod), *omegaInv, *mod)
 
 		Expect(result).To(Equal([]uint16{6, 0, 10, 7, 2, 0, 0, 0}))
 	})

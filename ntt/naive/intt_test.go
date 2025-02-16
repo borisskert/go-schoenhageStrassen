@@ -25,10 +25,10 @@ var _ = Describe("INTT", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		A_ntt := nttNaive(A, uint64(omega), uint64(mod))
+		A_ntt := nttNaive(A, *omega, *mod)
 		Expect(A_ntt).NotTo(Equal(A))
 
-		A_recovered := inttNaive(A_ntt, uint64(omegaInv), uint64(mod))
+		A_recovered := inttNaive(A_ntt, *omegaInv, *mod)
 		Expect(A_recovered).To(Equal(A))
 	})
 
@@ -39,10 +39,10 @@ var _ = Describe("INTT", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		A_ntt := nttNaive(A, uint64(omega), uint64(mod))
+		A_ntt := nttNaive(A, *omega, *mod)
 		Expect(A_ntt).NotTo(Equal(A))
 
-		A_recovered := inttNaive(A_ntt, uint64(omegaInv), uint64(mod))
+		A_recovered := inttNaive(A_ntt, *omegaInv, *mod)
 		Expect(A_recovered).To(Equal(A))
 	})
 
@@ -53,10 +53,10 @@ var _ = Describe("INTT", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		A_ntt := nttNaive(A, uint64(omega), uint64(mod))
+		A_ntt := nttNaive(A, *omega, *mod)
 		Expect(A_ntt).NotTo(Equal(A))
 
-		A_recovered := inttNaive(A_ntt, uint64(omegaInv), uint64(mod))
+		A_recovered := inttNaive(A_ntt, *omegaInv, *mod)
 		Expect(A_recovered).To(Equal(A))
 	})
 
@@ -67,10 +67,10 @@ var _ = Describe("INTT", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		A_ntt := nttNaive(A, uint64(omega), uint64(mod))
+		A_ntt := nttNaive(A, *omega, *mod)
 		Expect(A_ntt).NotTo(Equal(A))
 
-		A_recovered := inttNaive(A_ntt, uint64(omegaInv), uint64(mod))
+		A_recovered := inttNaive(A_ntt, *omegaInv, *mod)
 		Expect(A_recovered).To(Equal(A))
 	})
 
@@ -81,10 +81,10 @@ var _ = Describe("INTT", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		A_ntt := nttNaive(A, uint64(omega), uint64(mod))
+		A_ntt := nttNaive(A, *omega, *mod)
 		Expect(A_ntt).NotTo(Equal(A))
 
-		A_recovered := inttNaive(A_ntt, uint64(omegaInv), uint64(mod))
+		A_recovered := inttNaive(A_ntt, *omegaInv, *mod)
 		Expect(A_recovered).To(Equal(A))
 	})
 
@@ -95,10 +95,10 @@ var _ = Describe("INTT", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		A_ntt := nttNaive(A, uint64(omega), uint64(mod))
+		A_ntt := nttNaive(A, *omega, *mod)
 		Expect(A_ntt).NotTo(Equal(A))
 
-		A_recovered := inttNaive(A_ntt, uint64(omegaInv), uint64(mod))
+		A_recovered := inttNaive(A_ntt, *omegaInv, *mod)
 		Expect(A_recovered).To(Equal(A))
 	})
 
@@ -109,10 +109,10 @@ var _ = Describe("INTT", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		A_ntt := nttNaive(A, uint64(omega), uint64(mod))
+		A_ntt := nttNaive(A, *omega, *mod)
 		Expect(A_ntt).NotTo(Equal(A))
 
-		A_recovered := inttNaive(A_ntt, uint64(omegaInv), uint64(mod))
+		A_recovered := inttNaive(A_ntt, *omegaInv, *mod)
 		Expect(A_recovered).To(Equal(A))
 	})
 
@@ -123,10 +123,10 @@ var _ = Describe("INTT", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		A_ntt := nttNaive(A, uint64(omega), uint64(mod))
+		A_ntt := nttNaive(A, *omega, *mod)
 		Expect(A_ntt).NotTo(Equal(A))
 
-		A_recovered := inttNaive(A_ntt, uint64(omegaInv), uint64(mod))
+		A_recovered := inttNaive(A_ntt, *omegaInv, *mod)
 		Expect(A_recovered).To(Equal(A))
 	})
 
@@ -137,10 +137,10 @@ var _ = Describe("INTT", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		A_ntt := nttNaive(A, uint64(omega), uint64(mod))
+		A_ntt := nttNaive(A, *omega, *mod)
 		Expect(A_ntt).NotTo(Equal(A))
 
-		A_recovered := inttNaive(A_ntt, uint64(omegaInv), uint64(mod))
+		A_recovered := inttNaive(A_ntt, *omegaInv, *mod)
 		Expect(A_recovered).To(Equal(A))
 	})
 
@@ -151,10 +151,10 @@ var _ = Describe("INTT", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		A_ntt := nttNaive(A, uint64(omega), uint64(mod))
+		A_ntt := nttNaive(A, *omega, *mod)
 		Expect(A_ntt).NotTo(Equal(A))
 
-		A_recovered := inttNaive(A_ntt, uint64(omegaInv), uint64(mod))
+		A_recovered := inttNaive(A_ntt, *omegaInv, *mod)
 		Expect(A_recovered).To(Equal(A))
 	})
 
@@ -165,10 +165,10 @@ var _ = Describe("INTT", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 
-		A_ntt := nttNaive(A, uint64(omega), uint64(mod))
+		A_ntt := nttNaive(A, *omega, *mod)
 		Expect(A_ntt).NotTo(Equal(A))
 
-		A_recovered := inttNaive(A_ntt, uint64(omegaInv), uint64(mod))
+		A_recovered := inttNaive(A_ntt, *omegaInv, *mod)
 		Expect(A_recovered).To(Equal(A))
 	})
 })

@@ -1,6 +1,10 @@
 package integer
 
 func IsPrime(n uint64) bool {
+	return millerRabin(n, 100)
+}
+
+func isPrimeForSure(n uint64) bool { //nolint:unused
 	if n < 2 {
 		return false
 	}
@@ -18,12 +22,4 @@ func IsPrime(n uint64) bool {
 	}
 
 	return true
-}
-
-func FindNextPrime(M uint64) uint64 {
-	for n := M + 1; ; n++ {
-		if IsPrime(n) {
-			return n
-		}
-	}
 }

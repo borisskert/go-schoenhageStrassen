@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="tests" type="GoTestRunConfiguration" factoryName="Go Test">
-    <module name="github.com/borisskert/go-schoenhageStrassen" />
+    <module name="go-schoenhageStrassen" />
     <working_directory value="$PROJECT_DIR$" />
     <kind value="DIRECTORY" />
     <package value="github.com/borisskert/go-schoenhageStrassen" />
