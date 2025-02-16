@@ -1,16 +1,5 @@
 package array
 
-// bitReverse reverses the bits of x with respect to the highest power of two less than n.
-func bitReverse(x, n int) int {
-	result := 0
-	for n > 1 {
-		result = (result << 1) | (x & 1)
-		x >>= 1
-		n >>= 1
-	}
-	return result
-}
-
 func BitwiseReverse64(a []uint64) []uint64 {
 	n := len(a)
 	result := make([]uint64, n)
@@ -73,24 +62,6 @@ func bitwiseReverse64(x uint64) uint64 {
 	return x
 }
 
-func bitwiseReverseArray16(a []uint16) []uint16 {
-	n := len(a)
-	result := make([]uint16, n)
-	for i := 0; i < n; i++ {
-		result[i] = bitwiseReverse16(a[n-i-1])
-	}
-	return result
-}
-
-func bitwiseReverse16(x uint16) uint16 {
-	x = (x&0x5555)<<1 | (x&0xAAAA)>>1
-	x = (x&0x3333)<<2 | (x&0xCCCC)>>2
-	x = (x&0x0F0F)<<4 | (x&0xF0F0)>>4
-	x = (x&0x00FF)<<8 | (x&0xFF00)>>8
-
-	return x
-}
-
 func BitReverseCopyN(a []uint64, n uint64) []uint64 {
 	result := make([]uint64, n)
 	for i := uint64(0); i < n; i++ {
@@ -103,7 +74,7 @@ func BitReverseCopyN(a []uint64, n uint64) []uint64 {
 	return result
 }
 
-// Reverse the bits of i considering n (which should be a power of 2)
+// ReverseBits Reverse the bits of i considering n (which should be a power of 2)
 func ReverseBits(i, n uint64) uint64 {
 	rev := uint64(0)
 	bitCount := CountBits(n) - 1 // Ensure correct bit shifting

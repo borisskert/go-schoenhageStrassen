@@ -35,7 +35,7 @@ func inttCooleyTukeyIterative(a []uint64, omegaInv uint64, mod uint64) []uint16 
 	n := uint64(len(nttResult))
 
 	// Scale the result by nInv (modular inverse of n).
-	nInv := ModExp(n, mod-2, mod) // nInv = n^(-1) mod mod
+	nInv := ModInverseFermat(n, mod) // nInv = n^(-1) mod mod
 	result64 := make([]uint64, n)
 	for i := range nttResult {
 		result64[i] = ModMul(nttResult[i], nInv, mod)

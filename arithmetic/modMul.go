@@ -7,9 +7,8 @@ func ModMul(a, b, mod uint64) uint64 {
 		return 0
 	}
 
-	hi, lo := bits.Mul64(uint64(a%mod), uint64(b))
+	hi, lo := bits.Mul64(a%mod, b)
+	_, _, r := divmod64(hi, lo, mod)
 
-	_, _, r := divmod64(hi, lo, uint64(mod))
-
-	return normalizeMod(uint64(r), mod)
+	return r
 }

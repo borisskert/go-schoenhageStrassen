@@ -26,7 +26,7 @@ func inttNaive(a []uint64, omegaInv uint64, mod uint64) []uint16 {
 
 	fmt.Println("INTT result:", result)
 
-	nInv := ModExp(uint64(n), mod-2, mod)
+	nInv := ModInverseFermat(uint64(n), mod)
 
 	if ModMul(uint64(n), nInv, mod) != 1 {
 		fmt.Println("ERROR: n * nInv % mod != 1")
