@@ -45,16 +45,16 @@ func multiply16(
 		panic(err)
 	}
 
-	nttA := ntt(aPadded, omega, mod)
-	nttB := ntt(bPadded, omega, mod)
+	nttA := ntt(aPadded, *omega, *mod)
+	nttB := ntt(bPadded, *omega, *mod)
 
 	// Pointwise multiplication in NTT domain
 	productNTT := make([]uint64, n)
 	for i := 0; i < n; i++ {
-		productNTT[i] = ModMul(nttA[i], nttB[i], mod)
+		productNTT[i] = ModMul(nttA[i], nttB[i], *mod)
 	}
 
-	result := intt(productNTT, omegaInv, mod)
+	result := intt(productNTT, *omegaInv, *mod)
 
 	return array.TrimLeadingZeros16(result)
 }
