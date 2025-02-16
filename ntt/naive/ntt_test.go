@@ -1,4 +1,4 @@
-package ntt
+package naive
 
 import (
 	. "github.com/onsi/ginkgo/v2"
@@ -18,7 +18,7 @@ var _ = Describe("NTT", func() {
 		omega := uint64(3)
 		mod := uint64(11)
 
-		result := NaiveNTT(A, omega, mod)
+		result := nttNaive(A, omega, mod)
 
 		Expect(result).To(Equal([]uint64{3, 7, 0, 5, 4}))
 	})
@@ -29,7 +29,7 @@ var _ = Describe("NTT", func() {
 		omega := uint64(326)
 		mod := uint64(673)
 
-		result := NaiveNTT(A, omega, mod)
+		result := nttNaive(A, omega, mod)
 
 		Expect(result).To(Equal([]uint64{26, 338, 228, 115, 2, 457, 437, 448}))
 	})
@@ -40,7 +40,7 @@ var _ = Describe("NTT", func() {
 		omega := uint64(326)
 		mod := uint64(673)
 
-		result := NaiveNTT(A, omega, mod)
+		result := nttNaive(A, omega, mod)
 
 		Expect(result).To(Equal([]uint64{38, 594, 224, 157, 14, 201, 433, 406}))
 	})
@@ -51,7 +51,7 @@ var _ = Describe("NTT", func() {
 		omega := uint64(85)
 		mod := uint64(337)
 
-		result := NaiveNTT(A, omega, mod)
+		result := nttNaive(A, omega, mod)
 
 		Expect(result).To(Equal([]uint64{10, 329, 298, 126, 2, 271, 43, 301}))
 	})
@@ -62,7 +62,7 @@ var _ = Describe("NTT", func() {
 		omega := uint64(85)
 		mod := uint64(337)
 
-		result := NaiveNTT(A, omega, mod)
+		result := nttNaive(A, omega, mod)
 
 		Expect(result).To(Equal([]uint64{26, 24, 298, 322, 2, 83, 43, 277}))
 	})

@@ -6,12 +6,7 @@ import "fmt"
 func NTT2(a []uint16, omega, modulus uint64) []uint64 {
 	fmt.Println("NTT input:", a)
 
-	//n := len(a)
-	//if n == 0 {
-	//	return nil
-	//}
 	n := nextPowerOf2a(len(a))
-	//n := len(a)
 
 	// Convert input to uint64
 	a64 := make([]uint64, n)

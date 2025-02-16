@@ -3,9 +3,21 @@ package main
 import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	"go-schoenhageStrassen/modular"
 )
 
 var _ = Describe("INTT 16bit", func() {
+
+	It("[6, 0, 10, 7, 2] -> [3, 7, 0, 5, 4]", func() {
+		A := []uint16{6, 0, 10, 7, 2}
+
+		omega := uint64(3)
+		mod := uint64(11)
+
+		result := NTT2(A, omega, mod)
+
+		Expect(result).To(Equal([]uint64{3, 7, 0, 5, 4}))
+	})
 
 	It("NTT()", func() {
 		A := []uint16{0, 0, 0, 1, 0, 0, 0, 0}
@@ -146,4 +158,15 @@ var _ = Describe("INTT 16bit", func() {
 		Expect(A_recovered).To(Equal(A))
 	})
 
+	It("[4,1,4,2,1,3,5,6] -> [26,338,228,115,2,457,437,448]", func() {
+		A := []uint16{4, 1, 4, 2, 1, 3, 5, 6}
+
+		mod, omega, omegaInv, err := modular.FindModulus16(A)
+
+		Expect(err).NotTo(HaveOccurred())
+
+		result := INTT2a(NTT2(A, uint64(omega), uint64(mod)), uint64(omegaInv), uint64(mod))
+
+		Expect(result).To(Equal([]uint16{4, 1, 4, 2, 1, 3, 5, 6}))
+	})
 })

@@ -1,12 +1,12 @@
-package ntt
+package naive
 
 import (
 	"fmt"
 	. "go-schoenhageStrassen/arithmetic"
 )
 
-// NaiveINTT computes the Inverse Number Theoretic Transform.
-func NaiveINTT(a []uint64, omegaInv uint64, mod uint64) []uint16 {
+// inttNaive computes the Inverse Number Theoretic Transform.
+func inttNaive(a []uint64, omegaInv uint64, mod uint64) []uint16 {
 	fmt.Println("INTT input:", a)
 
 	n := len(a)

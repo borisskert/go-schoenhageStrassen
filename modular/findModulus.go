@@ -32,10 +32,9 @@ func FindModulusForTwo16(A, B []uint16) (Modulus, Omega, OmegaInverse, error) {
 	Ma := uint64(slices.Max(A))
 	Mb := uint64(slices.Max(B))
 
-	//m := Ma * Mb
 	m := Ma * Mb
 
-	return findModulusMN(uint64(m), uint64(n))
+	return findModulusMN(m, uint64(n))
 }
 
 func findModulusMN(m uint64, n uint64) (Modulus, Omega, OmegaInverse, error) {
