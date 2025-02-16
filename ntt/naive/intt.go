@@ -1,14 +1,11 @@
 package naive
 
 import (
-	"fmt"
 	. "go-schoenhageStrassen/arithmetic"
 )
 
 // inttNaive computes the Inverse Number Theoretic Transform.
 func inttNaive(a []uint64, omegaInv uint64, mod uint64) []uint16 {
-	fmt.Println("INTT input:", a)
-
 	n := len(a)
 	result := make([]uint64, n)
 
@@ -24,23 +21,16 @@ func inttNaive(a []uint64, omegaInv uint64, mod uint64) []uint16 {
 		result[i] = yi % mod
 	}
 
-	fmt.Println("INTT result:", result)
-
 	nInv := ModInverseFermat(uint64(n), mod)
 
 	if ModMul(uint64(n), nInv, mod) != 1 {
-		fmt.Println("ERROR: n * nInv % mod != 1")
-		return nil
+		panic("Cannot find modular inverse of n!")
 	}
-
-	fmt.Println("nInv:", nInv)
 
 	output64 := make([]uint64, n)
 	for i := range result {
 		output64[i] = ModMul(result[i], nInv, mod)
 	}
-
-	fmt.Println("INTT output64:", output64)
 
 	output := make([]uint16, n)
 	carry := uint64(0)
@@ -54,8 +44,6 @@ func inttNaive(a []uint64, omegaInv uint64, mod uint64) []uint16 {
 	if carry > 0 {
 		panic("ERROR: carry > 0")
 	}
-
-	fmt.Println("INTT output16:", output)
 
 	return output
 }

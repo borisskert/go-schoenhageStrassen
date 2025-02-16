@@ -1,7 +1,7 @@
 package modulus
 
 import (
-	"fmt"
+	"errors"
 	. "go-schoenhageStrassen/arithmetic"
 	"go-schoenhageStrassen/integer"
 	"slices"
@@ -42,23 +42,12 @@ func findModulusMN(m uint64, n uint64) (uint64, uint64, uint64, error) {
 	// 1. Compute minimum modulus M to prevent overflow
 	N, k := findWorkingModulus(m, n)
 
-	fmt.Println("Actual working modulus:", N)
-	fmt.Println("k:", k)
-
 	omega, omegaInv, err := findOmega(N, n, k)
 	for err != nil {
 		// If ω is invalid, find the next working modulus
 		N, k = findNextWorkingModulus(N+1, n)
-
-		fmt.Println("Actual working modulus:", N)
-		fmt.Println("k:", k)
-
 		omega, omegaInv, err = findOmega(N, n, k)
 	}
-
-	fmt.Println("ω:", *omega, "ω(Inv):", *omegaInv)
-	fmt.Println("ω ^ n =", ModExp(*omega, n, N))                    // should be 1 if ω is correct
-	fmt.Println("ω * ω(Inv) mod M =", ModMul(*omega, *omegaInv, N)) // should be 1
 
 	return N, *omega, *omegaInv, nil
 }
@@ -67,30 +56,23 @@ func findOmega(N uint64, n, k uint64) (*uint64, *uint64, error) {
 	// 3. Find a primitive root `g`
 	g, err := findPrimitiveRoot(N)
 	if err != nil {
-		fmt.Println("Primitive root not found")
-		return nil, nil, fmt.Errorf("primitive root not found")
+		return nil, nil, errors.New("primitive root not found")
 	}
-
-	fmt.Println("generator:", *g)
 
 	// 4. Compute `ω = g^k mod N`
 	omega := ModExp(*g, k, N)
-	fmt.Println("computed (g ^ k mod N) ω:", omega)
 
 	// 5. Validate `ω` is a primitive nth root of unity
 	if omega == 0 || omega == 1 {
-		fmt.Println("ω is invalid, ω should not be 0 or 1")
-		return nil, nil, fmt.Errorf("invalid ω")
+		return nil, nil, errors.New("invalid ω")
 	}
 
 	if ModExp(omega, n, N) != 1 {
-		fmt.Println("ω is invalid, ω ^ n mod N should be 1")
-		return nil, nil, fmt.Errorf("invalid ω")
+		return nil, nil, errors.New("invalid ω")
 	}
 
 	if ModExp(omega, k, N) == 1 {
-		fmt.Println("ω is invalid, ω ^ k mod N should not be 1")
-		return nil, nil, fmt.Errorf("invalid ω")
+		return nil, nil, errors.New("invalid ω")
 	}
 
 	// 6. Compute modular inverse of ω

@@ -1,14 +1,11 @@
 package naive
 
 import (
-	"fmt"
 	. "go-schoenhageStrassen/arithmetic"
 )
 
 // NaiveNTT computes the Number Theoretic Transform of the input slice a.
 func nttNaive(a []uint16, omega uint64, mod uint64) []uint64 {
-	fmt.Println("NTT input:", a)
-
 	n := len(a)
 
 	result := make([]uint64, n)
@@ -24,8 +21,6 @@ func nttNaive(a []uint16, omega uint64, mod uint64) []uint64 {
 
 		result[i] = yi
 	}
-
-	fmt.Println("NTT output:", result)
 
 	return result
 }
