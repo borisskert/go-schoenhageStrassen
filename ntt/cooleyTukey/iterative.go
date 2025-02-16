@@ -10,7 +10,7 @@ import (
 type cooleyTukeyIterative struct{}
 
 func (c cooleyTukeyIterative) NTT(a []uint16, omega uint64, mod uint64) []uint64 {
-	n := misc.NextPowerOf2a(len(a))
+	n := misc.NextPowerOf2(len(a))
 
 	a64 := make([]uint64, n)
 	for i := range a {
@@ -59,7 +59,7 @@ func inttCooleyTukeyIterative(a []uint64, omegaInv uint64, mod uint64) []uint16 
 }
 
 func cooleyTukeyIterativeNTT(a []uint64, omega uint64, mod uint64) []uint64 {
-	n := misc.NextPowerOf2a(len(a))
+	n := misc.NextPowerOf2(len(a))
 
 	// Bit-reversal permutation
 	result := array.BitReverseCopyN(a, uint64(n))

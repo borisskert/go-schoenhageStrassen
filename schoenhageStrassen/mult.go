@@ -39,7 +39,7 @@ func multiply16(
 	fmt.Println("a:", a)
 	fmt.Println("b:", b)
 
-	n := misc.NextPowerOf2a(len(a) + len(b))
+	n := misc.NextPowerOf2(len(a) + len(b))
 	aPadded := array.Pad16(a, n)
 	bPadded := array.Pad16(b, n)
 

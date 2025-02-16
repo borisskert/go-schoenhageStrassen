@@ -26,7 +26,7 @@ func RecursiveAlgorithm() ntt.NumberTheoreticTransforms {
 }
 
 func cooleyTukeyRecursiveNTT(a []uint64, omega uint64, mod uint64) []uint64 {
-	n := misc.NextPowerOf2(uint64(len(a)))
+	n := misc.NextPowerOf2(len(a))
 
 	// Base case: If the input size is 1, return the input as is.
 	if n == 1 {
@@ -34,12 +34,12 @@ func cooleyTukeyRecursiveNTT(a []uint64, omega uint64, mod uint64) []uint64 {
 	}
 
 	// Pad the input with zeros to the next power of 2.
-	a = append(a, make([]uint64, n-uint64(len(a)))...)
+	a = append(a, make([]uint64, n-(len(a)))...)
 
 	// Split the input into even and odd indices.
 	even := make([]uint64, n/2)
 	odd := make([]uint64, n/2)
-	for i := uint64(0); i < n/2; i++ {
+	for i := 0; i < n/2; i++ {
 		even[i] = a[2*i]
 		odd[i] = a[2*i+1]
 	}
@@ -51,9 +51,9 @@ func cooleyTukeyRecursiveNTT(a []uint64, omega uint64, mod uint64) []uint64 {
 
 	// Combine the results.
 	result := make([]uint64, n)
-	for k := uint64(0); k < n/2; k++ {
+	for k := 0; k < n/2; k++ {
 		// Twiddle factor: omega^k
-		twiddle := ModExp(omega, k, mod)
+		twiddle := ModExp(omega, uint64(k), mod)
 		// Combine even and odd results
 		result[k] = ModAdd(evenNTT[k], ModMul(twiddle, oddNTT[k], mod), mod)
 		result[k+n/2] = ModAdd(evenNTT[k], ModMul(mod-twiddle, oddNTT[k], mod), mod)
